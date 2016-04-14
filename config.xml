@@ -14,6 +14,9 @@
 		</author>
 		<icon src="images/logo.png" platform="android" width="57" height="57" density="mdpi" />
 		<gap:plugin name="cordova-plugin-whitelist" source="npm" />
+		<uses-permission android:name="android.permission.INTERNET" />
+		<access origin="*.google.com"/>
+		<access origin="*.googleapis.com"/>
 		<allow-navigation href="data:*" />
 		<allow-intent href="*" />
 		<access origin="*" />
