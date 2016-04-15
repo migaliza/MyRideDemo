@@ -15,7 +15,7 @@
 		</author>
 		<icon src="images/logo.png" platform="android" width="57" height="57" density="mdpi" />
 		<gap:plugin name="cordova-plugin-whitelist" source="npm" />
-		
+		<access origin="http://maps.google.com" subdomains="false" />
 		<access origin="*://*.googleapis.com/*" subdomains="true" />
 		<allow-navigation href="data:*" />
 		<allow-intent href="*" />
