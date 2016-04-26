@@ -7,7 +7,12 @@
  * Made By MaterializeCSS.com
  */
 
-
+#messageDisplay{
+    font-size: 12px; /* Set message font size  */
+    padding: 3px; /* Some padding to make some more space for our text  */
+    background: #EDEDED; /* Add a background color to our status message   */
+    border: 1px solid #DFDFDF; /* Add a border arround our status message   */
+}
 
 .collapsible-body ul li{
     padding: 0.05%;
@@ -85,14 +90,30 @@ body{
    
 
 }
+
+
+#start,
+      #end {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 200px;
+      }
+
+
 #MapCanvas{
     margin: 0 auto;
+    //width:100%;
     height: 85%;
     margin-top: 0.5%;
     margin-bottom: 0.5%;
 }
-/*
-#footerSection{
+
+/*#footerSection{
     height: 20px;
 }*/
 #extraInfo li a:hover {

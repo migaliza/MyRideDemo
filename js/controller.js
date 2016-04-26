@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var request = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/";
 $(document).ready(function () {
     $(".button-collapse").sideNav();
     $(".dropdown-button").dropdown();
     displayRouteCode();
     displayStatusOfBus();
     displayBusNames();
+  /* $('#RegisterManagement').click(function(e){
+        managementSignUp(e);
+   });*/
 
     $('.modal-trigger').leanModal();
     $('.collapsible').collapsible({
@@ -57,7 +61,7 @@ function setAttribute(element, attributes) {
  * @returns {undefined}
  */
 function displayStops() {
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=5";
+    var theUrl = request+"request.php?cmd=5";
     var object = sendRequest(theUrl);
     if (object.result === 1) {
         var listStops;
@@ -65,7 +69,7 @@ function displayStops() {
             var stopName = busStops.Bus_Stop_Name;
             listStops = '<li style="list-style-type:none;"><div class="collapsible-header data" id="' + busStops.Bus_Stop_Name + '"><i class="material-icons">keyboard_arrow_right</i>' + stopName + '</div><div class="collapsible-body "><ul id="first' + busStops.Bus_Stop_Id + '"></ul></div>';
             $("#stopsAvailable").append(listStops);
-            var theUrl2 = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=12&Bus_Stop_Name=" + busStops.Bus_Stop_Name;
+            var theUrl2 = request+"request.php?cmd=12&Bus_Stop_Name=" + busStops.Bus_Stop_Name;
             var obj2 = sendRequest(theUrl2);
             if (obj2.result === 1) {
                 var idUSed = "#first" + busStops.Bus_Stop_Id;
@@ -85,7 +89,7 @@ function displayStops() {
  * function to add data to the database
  * @returns {undefined}
  */
-/*function addBus() {
+function addBus() {
     var busId = $("#Busid").val();
     var busName = $("#BusName").val();
     var gpsDeviceId = $("#GPSDevice_ID").val();
@@ -106,7 +110,7 @@ function displayStops() {
         Materialize.toast(object.message, 5000, 'rounded');
     }
 
-}*/
+}
 
 /**
  * function to add a driver to the system 
@@ -120,7 +124,7 @@ function adddriver() {
 
 
     var stringval = "DriverId=" + driverId + "&firstName=" + firstName + "&lastName=" + lastName + "&AssignedBus_ID=" + assignedBus;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=4&" + stringval;
+    var theUrl = request+"request.php?cmd=4&" + stringval;
     console.log(theUrl);
     var object = sendRequest(theUrl);
 
@@ -144,7 +148,7 @@ function addBusStop() {
     var RouteId = $("#routecode").val();
 
     var stringVal = "Bus_Stop_Name=" + name + "&Longitude=" + lon + "&Latitude=" + lat + "&RouteId=" + RouteId;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=5&" + stringVal;
+    var theUrl = request+"request.php?cmd=5&" + stringVal;
 
 
     var obj = sendRequest(theUrl);
@@ -168,7 +172,7 @@ function addNewGPSDevice() {
 
     var stringVal = "Device_Id=" + deviceId + "&Description=" + description;
 
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=6&" + stringVal;
+    var theUrl = request+"request.php?cmd=6&" + stringVal;
 
     var obj = sendRequest(theUrl);
 
@@ -192,7 +196,7 @@ function addRoute() {
     var endLat = $("#EndLatitude").val();
 
     var stringVal = "Route_Code=" + routeCode + "&StartRoute_longitude=" + starLong + "&StartRoute_Latitude=" + startLat + "&EndLongitude=" + endLong + "&EndLatitude=" + endLat;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=8&" + stringVal;
+    var theUrl = request+"request.php?cmd=8&" + stringVal;
 
     var object = sendRequest(theUrl);
 
@@ -209,22 +213,29 @@ function addRoute() {
  * function to register the management
  * @returns {undefined}
  */
-function managementSignUp() {
+function managementSignUp(e) {
+    e.preventDefault();
     var agence = $("#companyName").val();
     var companyEmail = $("#email").val();
     var phoneNumber = $("#phoneNumber").val();
     var location = $("#location").val();
 
     var stringVal = "AgencyName=" + agence + "&email=" + companyEmail + "&PhoneNumber=" + phoneNumber + "&location=" + location;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=10&" + stringVal;
+    var theUrl = request+"request.php?cmd=10&" + stringVal;
     var object = sendRequest(theUrl);
-    //alert(theUrl);
+ 
+
     if (object.result === 1) {
-        Materialize.toast(object.message, 20000, 'rounded');
+        //alert("Your account has been created,  please verify it by clicking the activation link in the email send to you");
+        var emailVerification = '<p>Your account has been created, <br> please verify it by clicking the activation link in the email send to you.<br>Click the login link to login in to your account<p>';
+        $("#messageDisplay").append(emailVerification);
     }
     else {
         Materialize.toast(object.message, 4000, 'rounded');
     }
+     document.forms['RegisterManagement'].reset();
+    //$("#RegisterManagement").reset();
+    
 }
 
 
@@ -232,19 +243,15 @@ function managementSignUp() {
  * function to display the route details
  */
 function displayRouteCode() {
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=9";
+    var theUrl = request+"request.php?cmd=9";
     var object = sendRequest(theUrl);
 
     if (object.result === 1) {
-        //alert("here");
         $.each(object.routes, function (i, routes) {
             var optionElement = document.createElement('option');
             optionElement.value = routes.Route_Code;
             optionElement.innerHTML = routes.Route_Code;
             $("#routecode").append(optionElement);
-            //var routeElement = $('<select></select>');
-            //routeElement.html('<option value="'+i+'">'+routes.Route_Code+'</option>');
-            //$("#routecode").append('<option value="'+i+'">'+routes.Route_Code+'</option>');
         });
     }
     else {
@@ -284,18 +291,20 @@ $("#email").bind("input propertychange", function () {
  * function to login the bus management
  * @returns {undefined}
  */
-function managementLogin() {
+function managementLogin(e) {
+    e.preventDefault();
     var email = $("#email").val();
     var password = $("#password").val();
 
     var stringVal = "email=" + email + "&Assigned_Pass=" + password;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=11&" + stringVal;
+    var theUrl = request+"request.php?cmd=11&" + stringVal;
 
     var object = sendRequest(theUrl);
 
     if (object.result === 1) {
         //window.location="/";
-        window.location = "/DashBoard.html";
+        Materialize.toast(object.message, 4000, 'rounded');
+        window.location = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/DashBoard.html";
 
     }
     else {
@@ -322,7 +331,7 @@ function add_bus_status() {
 
 
     var stringVal = "Status=" + status + "&Importance=" + priority + "&BusName=" + bus_name;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=14&" + stringVal;
+    var theUrl = request+"request.php?cmd=14&" + stringVal;
    
     var object = sendRequest(theUrl);
     if (object.result === 1) {
@@ -335,7 +344,7 @@ function add_bus_status() {
 
 
 function  displayStatusOfBus() {
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=15";
+    var theUrl = request+"request.php?cmd=15";
     var object = sendRequest(theUrl);
     var marquee = "";
     if (object.result === 1) {
@@ -355,7 +364,7 @@ function  displayStatusOfBus() {
  * @returns {undefined}
  */
 function displayBusNames() {
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=13";
+    var theUrl = request+"request.php?cmd=13";
     var object = sendRequest(theUrl);
 
     if (object.result === 1) {
@@ -364,9 +373,7 @@ function displayBusNames() {
             optionElement.value = busNames.Bus_Name;
             optionElement.innerHTML = busNames.Bus_Name;
             $("#busNameId").append(optionElement);
-            //var routeElement = $('<select></select>');
-            //routeElement.html('<option value="'+i+'">'+routes.Route_Code+'</option>');
-            //$("#routecode").append('<option value="'+i+'">'+routes.Route_Code+'</option>');
+
         });
     }
 }
@@ -375,8 +382,11 @@ function displayBusNames() {
  * fucntion to pick the current cordinate and pass to the database
  * @returns {undefined}
  */
-function trafficStatus() {
+function trafficStatus(e) {
+     e.preventDefault();
     navigator.geolocation.getCurrentPosition(addTrafficJamStatus);
+    document.forms['trafficUpdateStatus'].reset();
+    
 }
 
 /**
@@ -403,7 +413,7 @@ function addTrafficJamStatus(position) {
 
 
     var stringVal = "level_of_traffic=" + level + "&jam_statement=" + jamStatus + "&latitude=" + latitude + "&longitude=" + longitude;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=16&" + stringVal;
+    var theUrl = request+"request.php?cmd=16&" + stringVal;
     var object = sendRequest(theUrl);
      prompt("urls is: ", theUrl);
     if (object.result === 1) {
@@ -418,9 +428,11 @@ function addTrafficJamStatus(position) {
  * fucntion to pick the current cordinate and pass to the database
  * @returns {undefined}
  */
-function accidentStatus() {
+function accidentStatus(e) {
+     e.preventDefault();
  
     navigator.geolocation.getCurrentPosition(addAcciddentStatus);
+    document.forms['accidentStatusUpdate'].reset();
 }
 
 /**
@@ -447,7 +459,7 @@ function addAcciddentStatus(position) {
    
     
     var stringVal = "Update_Statement="+update+"&longitude="+longitude + "&Latitude="+latitude+"&accidentLevel="+accidentLevel;
-    var theUrl = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/request.php?cmd=17&"+stringVal;
+    var theUrl = request+"request.php?cmd=17&"+stringVal;
     var object = sendRequest(theUrl);
     //alert(object.result);
     if(object.result===1){
@@ -456,8 +468,24 @@ function addAcciddentStatus(position) {
     else{
            Materialize.toast(object.message, 4000, 'rounded');
     }
-
-
-    
-    
 }
+
+
+/**
+ * function to display all the status of the bus
+ * @returns {undefined}
+ */
+function displayTrafficStatuses(){
+    var theUrl=request+"request.php?cmd=21";
+    var object = sendRequest(theUrl);
+    
+    if(object.result===1){
+        var listStatus;
+        $.each(object.statusBus,function(i,statusBus){
+             listStatus = '<li class="collection-item avatar"><imag src="images/bus2.png" alt="" class="cirlce"> <span class="title"><b>Bus:</b> '+statusBus.BusName+' </span><b>Status: </b><p>'+statusBus.status+'</p></li>';
+             $("#busStatuses").append(listStatus);
+        });
+
+    }
+}
+

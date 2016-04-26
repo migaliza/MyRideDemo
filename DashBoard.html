@@ -75,11 +75,19 @@ and open the template in the editor.
                             </div>
                         </li>
                         <li class="divider"></li>
-                        <li class="divider"></li>
                         <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Route</a>
                             <div class="collapsible-body">
                                 <ul>
-                                    <li><a  href="#"><i class="material-icons">info_outline</i>Route InfoInfo</a></li>
+                                    <li><a  href="#"><i class="material-icons">info_outline</i>Route Info</a></li>
+                                    <li><a  href="#addRoute" class="modal-trigger"><i class="material-icons">add_box</i>Add route</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Generate reports</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li></li>
                                     <li><a  href="#addRoute" class="modal-trigger"><i class="material-icons">add_box</i>Add route</a></li>
                                 </ul>
                             </div>
@@ -90,6 +98,30 @@ and open the template in the editor.
             </ul>
         </header>
         <main>
+
+            <div id="displaydatepicker">
+
+
+
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card #ffffff ">
+                            <div class="card-content black-text">
+                                <span class="card-title">Bus Reports</span>
+                                <p>Select a date to view the bus movement on that day</p>
+                                 <input type="date" class="datepicker" id="reportDate">
+                                 <label for="reportDate">SELECT DATE</label>
+                                 
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
             <!--add GPS device modal -->
             <div id="addGPSDevice" class="modal">
@@ -122,8 +154,8 @@ and open the template in the editor.
 
                 </div>
             </div>
-            
-            
+
+
             <!-- Add route modal -->
             <div id="addRoute" class="modal">
                 <div class="modal-content">
@@ -196,9 +228,9 @@ and open the template in the editor.
                             </div>
                             <div class="row">
                                 <div class="input-field col s12" >
-                                    
+
                                     <select  class="browser-default" id="routecode" name="RouteId">
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -309,7 +341,7 @@ and open the template in the editor.
 
                 <div class="modal-footer">
                     <button  class=" btn btn-small modal-action red modal-close waves-effect " type="button" name="action">CANCEL</button>
-                  
+
                 </div>
             </div>
 

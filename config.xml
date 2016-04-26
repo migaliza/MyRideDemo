@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<widget xmlns="http://www.w3.org/ns/widgets"
 		xmlns:gap ="http://phonegap.com/ns/1.0"
-        id       = "com.Migaliza.MyRide"
+                id          = "com.phonegap.MyRide"
 		versionCode ="11"
 		version ="1.0.0">
-		
 		
 		<name> MyRide</name>
 		<description>
@@ -15,9 +14,6 @@
 		</author>
 		<icon src="images/logo.png" platform="android" width="57" height="57" density="mdpi" />
 		<gap:plugin name="cordova-plugin-whitelist" source="npm" />
-		
-		<access origin="http://maps.google.com" subdomains="false" />
-		<access origin="https://maps.googleapis.com/*" subdomains="true" />
 		<allow-navigation href="data:*" />
 		<allow-intent href="*" />
 		<access origin="*" />
