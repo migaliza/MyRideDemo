@@ -40,7 +40,8 @@
 var url = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/";
 
 function initMap() {
-
+    
+    var ashesi = new google.maps.LatLng(5.7593,-0.2201);
     var destination_place_id = null;
     var origin_place_id = null;
     var travel_mode = google.maps.TravelMode.DRIVING;
@@ -78,10 +79,10 @@ function initMap() {
      * function to handle no geolocation 
      * 
      */
-    function handleNoGeolocation(errorFlag){
-        if(errorFlag== true){
+    function handleNoGeolocation(browserSupportFlag){
+        if(browserSupportFlag=== true){
             alert("geolocation service failed");
-            initialLocation = accra;
+            initialLocation=ashesi;
         }
         map.setCenter(initialLocation);
     }
