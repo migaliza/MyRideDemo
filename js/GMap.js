@@ -65,6 +65,7 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(function(position){
             initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
             map.setCenter(initialLocation);
+            alert("fdsjhfjdsfkjs");
         },function(){
             handleNoGeolocation(browserSupportFlag);
         });
@@ -79,9 +80,9 @@ function initMap() {
      * function to handle no geolocation 
      * 
      */
-    function handleNoGeolocation(browserSupportFlag){
-        if(browserSupportFlag=== true){
-            alert("geolocation service failed");
+    function handleNoGeolocation(errorLog){
+        if(errorLog=== true){
+            //alert("geolocation service failed");
             initialLocation=ashesi;
         }
         map.setCenter(initialLocation);
@@ -90,42 +91,7 @@ function initMap() {
     
    // var personIcon = new google.maps.MarkerImage("images/personP.png", null, null, null, new google.maps.Size(60, 60));
     
-   /* navigator.geolocation.getCurrentPosition(function(position){
-       var lati = position.coords.latitude;
-       var long = position.coords.longitude;
-    });
-    /*if (navigator.geolocation) {
 
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            /*pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };*/
-            /*infoWindow.setPosition(pos);
-            infoWindow.setContent('You are here');
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng (latitude,longitude),
-                map: map,
-                title: "Your are here",
-                icon: personIcon
-            });
-            map.setCenter(pos);
-            alert("latitude is: "+latitude);*/
-            // alert("Latitude is:  and longitude is: ");
-        /*});
-    } else {
-        alert("not found");
-    }*/
-
-
-    //coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-    /*
-     * marker to show current position of user
-     * @type google.maps.Marker
-     */
    /* var marker = new google.maps.Marker({
         position: pos,
         map: map,
@@ -136,13 +102,6 @@ function initMap() {
 
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
-
-
-   // var personIcon = new google.maps.MarkerImage("images/personP.png", null, null, null, new google.maps.Size(60, 60));
-
-
-
-
 
     /*
      * function to place buses on the map
@@ -246,8 +205,8 @@ function initMap() {
 
 
     // push the destination input text box on the map
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(origin);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(destination);
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(traficButton);
     // map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(floatButton);
 
