@@ -48,6 +48,7 @@ function initMap() {
     var initialLocation;
     var options = {
         zoom: 15,
+	center:google.maps.LatLng(5.7593,-0.2201),
         scrollwheel: true,
         mapTypeControl: false,
         mapTypeControlOptions: {
@@ -65,7 +66,7 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(function(position){
             initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
             map.setCenter(initialLocation);
-            alert("fdsjhfjdsfkjs");
+            //alert("fdsjhfjdsfkjs");
         },function(){
             handleNoGeolocation(browserSupportFlag);
         });
@@ -208,7 +209,7 @@ function initMap() {
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(origin);
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(destination);
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(traficButton);
-    // map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(floatButton);
+
 
     google.maps.event.addDomListener(document.getElementById('trafficstatus'), 'click', diplayTafficStatus);
 
