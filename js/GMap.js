@@ -40,69 +40,61 @@
 var url = "http://166.62.103.147/~ashesics/class2016/beatrice_migaliza/MyRide/public_html/PHP/";
 
 function initMap() {
-    
-    var ashesi = new google.maps.LatLng(5.7593,-0.2201);
+
     var destination_place_id = null;
     var origin_place_id = null;
     var travel_mode = google.maps.TravelMode.DRIVING;
-    var initialLocation;
-    var options = {
+
+     var options = {
         zoom: 15,
-	center:google.maps.LatLng(5.7593,-0.2201),
+        center: google.maps.LatLng(5.7593,-0.2201),
         scrollwheel: true,
         mapTypeControl: false,
         mapTypeControlOptions: {
             style: google.maps.NavigationControlStyle.SMALL
         }
     };
-
+    var pos
     var map = new google.maps.Map(document.getElementById('MapCanvas'), options);
-    /**
-     * try geolocation
-     */
-    
-    if(navigator.geolocation){
-        browserSupportFlag = true;
-        navigator.geolocation.getCurrentPosition(function(position){
-            initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-            map.setCenter(initialLocation);
-            //alert("fdsjhfjdsfkjs");
-        },function(){
-            handleNoGeolocation(browserSupportFlag);
-        });
+    if (navigator.geolocation) {
         
-    }//browser doesn't support geolocation
-    else{
-        browserSupportFlag = false;
-        handleNoGeolocation(browserSupportFlag);
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            
+           map.setCenter(pos);
+           alert("Latitude is:  and longitude is: ");
+        });
+    } else{
+        alert("not found");
     }
-    
-    /**
-     * function to handle no geolocation 
-     * 
-     */
-    function handleNoGeolocation(errorLog){
-        if(errorLog=== true){
-            //alert("geolocation service failed");
-            initialLocation=ashesi;
-        }
-        map.setCenter(initialLocation);
-    }
-    
-    
-   // var personIcon = new google.maps.MarkerImage("images/personP.png", null, null, null, new google.maps.Size(60, 60));
-    
 
-   /* var marker = new google.maps.Marker({
+    
+    //coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+   
+    /*
+     * marker to show current position of user
+     * @type google.maps.Marker
+     */
+    var marker = new google.maps.Marker({
         position: pos,
         map: map,
         title: "Your are here",
         icon: personIcon
-    });*/
+    });
 
 
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
+    
+
+    var personIcon = new google.maps.MarkerImage("images/personP.png", null, null, null, new google.maps.Size(60, 60));
+
+
+
+
 
     /*
      * function to place buses on the map
@@ -202,14 +194,14 @@ function initMap() {
     var origin = document.getElementById('start');
     var destination = document.getElementById('end');
     var traficButton = document.getElementById('trafficstatus');
-    // var floatButton = document.getElementById('mobileShow');
+    var floatButton = document.getElementById('mobileShow');
 
 
     // push the destination input text box on the map
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(origin);
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(destination);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination);
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(traficButton);
-
+    map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(floatButton);
 
     google.maps.event.addDomListener(document.getElementById('trafficstatus'), 'click', diplayTafficStatus);
 
